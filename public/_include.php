@@ -5,10 +5,13 @@ declare(strict_types=1);
 // initialize the autoloader
 require_once(dirname(__FILE__, 2) . '/src/_autoload.php');
 
-use SimpleSAML\SAML2\Compat\ContainerSingleton;
 use SimpleSAML\Compat\SspContainer;
 use SimpleSAML\Configuration;
 use SimpleSAML\Error;
+use SimpleSAML\Logger;
+use SimpleSAML\Module;
+use SimpleSAML\SAML2\Compat\ContainerSingleton;
+use SimpleSAML\SAML2\Constants as C;
 use SimpleSAML\Utils;
 
 $exceptionHandler = new Error\ExceptionHandler();
@@ -18,7 +21,7 @@ $errorHandler = new Error\ErrorHandler();
 set_error_handler([$errorHandler, 'customErrorHandler']);
 
 try {
-    Configuration::getInstance();
+    $config = Configuration::getInstance();
 } catch (Exception $e) {
     throw new Error\CriticalConfigurationError(
         $e->getMessage()
@@ -31,4 +34,5 @@ $timeUtils->initTimezone();
 
 // set the SAML2 container
 $container = new SspContainer();
+$container->setBlacklistedAlgorithms([C::SIG_RSA_SHA1, C::KEY_TRANSPORT_RSA_1_5]);
 ContainerSingleton::setContainer($container);

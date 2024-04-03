@@ -365,6 +365,7 @@ class RequestedAuthnContextSelectorTest extends TestCase
                     'AuthnContextClassRef' => [
                         'urn:x-simplesamlphp:loa1',
                         'urn:x-simplesamlphp:loa2',
+                        'urn:x-simplesamlphp:loa3',
                     ],
                     'Comparison' => 'exact',
                 ],
@@ -373,12 +374,13 @@ class RequestedAuthnContextSelectorTest extends TestCase
             [
                 [
                     'AuthnContextClassRef' => [
+                        'urn:x-simplesamlphp:loa3',
                         'urn:x-simplesamlphp:loa2',
                         'urn:x-simplesamlphp:loa1',
                     ],
                     'Comparison' => 'exact',
                 ],
-                'loa2',
+                'loa3',
             ],
 
             // Unknown context requested

@@ -115,7 +115,7 @@ class SimpleSAML_XML_Validator {
 		}
 
 		// Check the signature
-		if (! $objXMLSecDSig->verify($objKey)) {
+		if ($objXMLSecDSig->verify($objKey) !== 1) {
 			throw new Exception("Unable to validate Signature");
 		}
 
@@ -260,7 +260,7 @@ class SimpleSAML_XML_Validator {
 		assert('$node instanceof DOMNode');
 
 		while($node !== NULL) {
-			if(in_array($node, $this->validNodes)) {
+			if(in_array($node, $this->validNodes, true)) {
 				return TRUE;
 			}
 

@@ -271,8 +271,7 @@ class SimpleSAML_Session
                     SimpleSAML_Logger::warning('Missing AuthToken cookie.');
                     return null;
                 }
-
-                if (!SimpleSAML\Utils\Crypto::secureCompare($session->authToken, $_COOKIE[$authTokenCookieName])) {
+                if ($_COOKIE[$authTokenCookieName] !== $session->authToken) {
                     SimpleSAML_Logger::warning('Invalid AuthToken cookie.');
                     return null;
                 }
